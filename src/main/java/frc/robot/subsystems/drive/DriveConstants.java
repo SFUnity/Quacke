@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems.drive;
 
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.pathplanner.lib.config.ModuleConfig;
 import com.pathplanner.lib.config.RobotConfig;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -47,6 +48,11 @@ public class DriveConstants {
   public static final int frontRightTurnCanId = 6;
   public static final int backRightTurnCanId = 8;
 
+  public static final int frontLeftEncoderCanId = 2;
+  public static final int backLeftEncoderCanId = 4;
+  public static final int frontRightEncoderCanId = 6;
+  public static final int backRightEncoderCanId = 8;
+
   // Drive motor configuration
   public static final int driveMotorCurrentLimit = 50;
   public static final double wheelRadiusMeters = Units.inchesToMeters(1.5);
@@ -79,10 +85,29 @@ public class DriveConstants {
   public static final double turnMotorReduction = 9424.0 / 203.0;
   public static final DCMotor turnGearbox = DCMotor.getNeo550(1);
 
-  // Turn encoder configuration
+  // can coder configuration
   public static final boolean turnEncoderInverted = true;
   public static final double turnEncoderPositionFactor = 2 * Math.PI; // Rotations -> Radians
   public static final double turnEncoderVelocityFactor = (2 * Math.PI) / 60.0; // RPM -> Rad/Sec
+
+  public static final CANcoderConfiguration encoderInitialConfigs = new CANcoderConfiguration();
+
+  public static final double frontLeftEncoderOffset = (0.15234375);
+  public static final double frontRightEncoderOffset = (-0.4873046875);
+  public static final double backLeftEncoderOffset = (-0.219482421875);
+  public static final double backRightEncoderOffset = (0.17236328125);
+
+  public static final boolean frontLeftEncoderInverted = false;
+  public static final boolean frontRightEncoderInverted = false;
+  public static final boolean backLeftEncoderInverted = false;
+  public static final boolean backRightEncoderInverted = false;
+
+  // Turn encoder configuration
+
+  public static final boolean frontLeftTurnEncoderInverted = false;
+  public static final boolean frontRightTurnEncoderInverted = false;
+  public static final boolean backLeftTurnEncoderInverted = false;
+  public static final boolean backRightTurnEncoderInverted = false;
 
   // Turn PID configuration
   public static final double turnKp = 2.0;
