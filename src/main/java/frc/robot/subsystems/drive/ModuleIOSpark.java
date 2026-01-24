@@ -145,26 +145,24 @@ public class ModuleIOSpark implements ModuleIO {
     turnConfig
         .inverted(turnInverted)
         .idleMode(IdleMode.kBrake)
-        .smartCurrentLimit(turnMotorCurrentLimit)
+        .smartCurrentLimit(60)
         .voltageCompensation(12.0);
     turnConfig
-        .primaryEncoder
-    .inverted(cancoderInverted)
-    .positionConversionFactor(cancoderPositionFactor)
-    .velocityConversionFactor(cancoderVelocityFactor)
-    .averageDepth(2);
+        .encoder
+        .positionConversionFactor(turnPositionFactor)
+        .velocityConversionFactor(turnVelocityFactor)
+        .uvwAverageDepth(2);   
     turnConfig
-    .closedLoop
-    .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-    .positionWrappingEnabled(true)
-    .positionWrappingInputRange(turnPIDMinInput, turnPIDMaxInput)
-    .pid(turnKp, 0.0, turnKd);
+        .closedLoop
+        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+        .positionWrappingEnabled(true)
+        .positionWrappingInputRange(turnPIDMinInput, turnPIDMaxInput)
+        .pid(turnKp, 0.0, turnKd);
     turnConfig
         .signals
-        .absoluteEncoderPositionAlwaysOn(true)
-        .absoluteEncoderPositionPeriodMs((int) (1000.0 / odometryFrequency))
-        .absoluteEncoderVelocityAlwaysOn(true)
-        .absoluteEncoderVelocityPeriodMs(20)
+        .primaryEncoderPositionAlwaysOn(true)
+        .primaryEncoderVelocityAlwaysOn(true)
+        .primaryEncoderVelocityPeriodMs(20)
         .appliedOutputPeriodMs(20)
         .busVoltagePeriodMs(20)
         .outputCurrentPeriodMs(20);
