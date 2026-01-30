@@ -36,22 +36,22 @@ public class DriveConstants {
   public static final Rotation2d backRightZeroRotation = new Rotation2d(0.0);
 
   // Device CAN IDs
-  public static final int pigeonCanId = 9;
+  public static final int pigeonCanId = 24;
 
-  public static final int frontLeftDriveCanId = 1;
-  public static final int backLeftDriveCanId = 3;
-  public static final int frontRightDriveCanId = 5;
-  public static final int backRightDriveCanId = 7;
+  public static final int frontLeftDriveCanId = 19;
+  public static final int backLeftDriveCanId = 22;
+  public static final int frontRightDriveCanId = 29;
+  public static final int backRightDriveCanId = 26;
 
-  public static final int frontLeftTurnCanId = 2;
-  public static final int backLeftTurnCanId = 4;
-  public static final int frontRightTurnCanId = 6;
-  public static final int backRightTurnCanId = 8;
+  public static final int frontLeftTurnCanId = 18;
+  public static final int backLeftTurnCanId = 21;
+  public static final int frontRightTurnCanId = 28;
+  public static final int backRightTurnCanId = 25;
 
-  public static final int frontLeftEncoderCanId = 2;
-  public static final int backLeftEncoderCanId = 4;
-  public static final int frontRightEncoderCanId = 6;
-  public static final int backRightEncoderCanId = 8;
+  public static final int frontLeftEncoderCanId = 20;
+  public static final int backLeftEncoderCanId = 23;
+  public static final int frontRightEncoderCanId = 30;
+  public static final int backRightEncoderCanId = 27;
 
   // Drive motor configuration
   public static final int driveMotorCurrentLimit = 50;
@@ -69,11 +69,10 @@ public class DriveConstants {
       (2 * Math.PI) / 60.0 / driveMotorReduction; // Rotor RPM ->
   // Wheel Rad/Sec
 
-  //Position and velocity conversion factors for the can coders
-    public static final double turnMotorReduction = 150/7;
-    public static final double turnPositionFactor = (360/turnMotorReduction);
-    public static final double turnVelocityFactor = (1/(60 * turnMotorReduction)); 
-
+  // Position and velocity conversion factors for the can coders
+  public static final double turnMotorReduction = 150 / 7;
+  public static final double turnPositionFactor = (360 / turnMotorReduction);
+  public static final double turnVelocityFactor = (1 / (60 * turnMotorReduction));
 
   // Drive PID configuration
   public static final double driveKp = 0.0;

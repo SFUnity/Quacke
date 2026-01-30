@@ -151,7 +151,7 @@ public class ModuleIOSpark implements ModuleIO {
         .encoder
         .positionConversionFactor(turnPositionFactor)
         .velocityConversionFactor(turnVelocityFactor)
-        .uvwAverageDepth(2);   
+        .uvwAverageDepth(2);
     turnConfig
         .closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
