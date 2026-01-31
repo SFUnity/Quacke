@@ -132,7 +132,15 @@ public class ModuleIOSpark implements ModuleIO {
     // Configure turn motor
     var turnConfig = new SparkMaxConfig();
     turnConfig
-        .inverted(turnInverted)
+        .inverted(
+            switch (module) {
+              case 0 -> frontLeftTurnEncoderInverted;
+              case 1 -> frontRightTurnEncoderInverted;
+              case 2 -> backLeftTurnEncoderInverted;
+              case 3 -> backRightTurnEncoderInverted;
+              default -> false;
+            }
+        )
         .idleMode(IdleMode.kCoast)
         .smartCurrentLimit(60)
         .voltageCompensation(12.0);
