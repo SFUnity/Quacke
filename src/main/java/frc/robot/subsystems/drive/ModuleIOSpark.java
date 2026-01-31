@@ -107,8 +107,7 @@ public class ModuleIOSpark implements ModuleIO {
               case 2 -> backLeftDriveInverted;
               case 3 -> backRightDriveInverted;
               default -> false;
-            }
-        )
+            })
         .idleMode(IdleMode.kCoast)
         .smartCurrentLimit(driveMotorCurrentLimit)
         .voltageCompensation(12.0);
