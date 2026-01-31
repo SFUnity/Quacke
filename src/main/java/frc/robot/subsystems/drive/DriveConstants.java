@@ -83,10 +83,10 @@ public class DriveConstants {
   // can coder configuration
   public static final CANcoderConfiguration encoderInitialConfigs = new CANcoderConfiguration();
 
-  public static final double frontLeftEncoderOffset = (0.15234375);
-  public static final double frontRightEncoderOffset = (-0.4873046875);
-  public static final double backLeftEncoderOffset = (-0.219482421875);
-  public static final double backRightEncoderOffset = (0.17236328125);
+  public static final double frontLeftEncoderOffset = (0.26025390625);
+  public static final double frontRightEncoderOffset = (0.239990234375);
+  public static final double backLeftEncoderOffset = (-0.448486328125);
+  public static final double backRightEncoderOffset = (-0.2939453125);
 
   public static final boolean frontLeftEncoderInverted = false;
   public static final boolean frontRightEncoderInverted = false;
