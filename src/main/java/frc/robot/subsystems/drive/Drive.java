@@ -174,6 +174,10 @@ public class Drive extends SubsystemBase {
 
     // Update gyro alert
     gyroDisconnectedAlert.set(!gyroInputs.connected && Constants.currentMode != Mode.SIM);
+
+    Logger.recordOutput(
+        "Drive/cmd",
+        this.getCurrentCommand() != null ? this.getCurrentCommand().getName() : "none");
   }
 
   /**
