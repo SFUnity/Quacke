@@ -101,7 +101,7 @@ public class DriveConstants {
   public static final boolean backRightEncoderInverted = false;
 
   // Turn PID configuration
-  public static final LoggedTunableNumber turnKp = new LoggedTunableNumber("Tuning/turnKp", .5);
+  public static final LoggedTunableNumber turnKp = new LoggedTunableNumber("Tuning/turnKp", 1.75);
   public static final double turnSimP = 8.0;
   public static final double turnSimD = 0.0;
   public static final double turnPIDMinInput = 0; // Radians
