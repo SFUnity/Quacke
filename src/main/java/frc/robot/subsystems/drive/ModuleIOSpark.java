@@ -148,8 +148,9 @@ public class ModuleIOSpark implements ModuleIO {
         .voltageCompensation(12.0);
     turnConfig
         .encoder
-        .positionConversionFactor(turnPositionFactor)
-        .velocityConversionFactor(turnVelocityFactor)
+        .inverted(turnEncoderInverted)
+        .positionConversionFactor(turnEncoderPositionFactor)
+        .velocityConversionFactor(turnEncoderVelocityFactor)
         .uvwAverageDepth(2);
     turnConfig
         .closedLoop
