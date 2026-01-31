@@ -119,7 +119,7 @@ public class ModuleIOSpark implements ModuleIO {
     driveConfig
         .closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-        .pid(driveKp, 0.0, driveKd);
+        .pid(driveKp.get(), 0.0, 0);
     driveConfig
         .signals
         .primaryEncoderPositionAlwaysOn(true)
@@ -153,7 +153,7 @@ public class ModuleIOSpark implements ModuleIO {
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
         .positionWrappingEnabled(true)
         .positionWrappingInputRange(turnPIDMinInput, turnPIDMaxInput)
-        .pid(turnKp, 0.0, turnKd);
+        .pid(turnKp.get(), 0.0, 0);
     turnConfig
         .signals
         .primaryEncoderPositionAlwaysOn(true)

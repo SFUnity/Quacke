@@ -13,6 +13,7 @@ import com.pathplanner.lib.config.RobotConfig;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.util.Units;
+import frc.robot.util.LoggedTunableNumber;
 
 public class DriveConstants {
   public static final double maxSpeedMetersPerSec = 4.8;
@@ -66,10 +67,10 @@ public class DriveConstants {
   public static final boolean backRightDriveInverted = true;
 
   // Drive PID configuration
-  public static final double driveKp = 0.0;
+  public static final LoggedTunableNumber driveKp = new LoggedTunableNumber("Tuning/driveKp", .3);
   public static final double driveKd = 0.0;
-  public static final double driveKs = 0.0;
-  public static final double driveKv = 0.1;
+  public static final double driveKs = 0.2;
+  public static final double driveKv = 0.7;
   public static final double driveSimP = 0.05;
   public static final double driveSimD = 0.0;
   public static final double driveSimKs = 0.0;
@@ -99,8 +100,7 @@ public class DriveConstants {
   public static final boolean backRightEncoderInverted = false;
 
   // Turn PID configuration
-  public static final double turnKp = 2.0;
-  public static final double turnKd = 0.0;
+  public static final LoggedTunableNumber turnKp = new LoggedTunableNumber("Tuning/turnKp", .5);
   public static final double turnSimP = 8.0;
   public static final double turnSimD = 0.0;
   public static final double turnPIDMinInput = 0; // Radians
