@@ -60,6 +60,11 @@ public class DriveConstants {
       (2 * Math.PI) / 60.0 / driveMotorReduction; // Rotor RPM ->
   // Wheel Rad/Sec
 
+  public static final boolean frontLeftDriveInverted = false;
+  public static final boolean frontRightDriveInverted = true;
+  public static final boolean backLeftDriveInverted = false;
+  public static final boolean backRightDriveInverted = true;
+
   // Drive PID configuration
   public static final double driveKp = 0.0;
   public static final double driveKd = 0.0;

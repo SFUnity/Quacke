@@ -100,6 +100,15 @@ public class ModuleIOSpark implements ModuleIO {
     // Configure drive motor
     var driveConfig = new SparkMaxConfig();
     driveConfig
+        .inverted(
+            switch (module) {
+              case 0 -> frontLeftDriveInverted;
+              case 1 -> frontRightDriveInverted;
+              case 2 -> backLeftDriveInverted;
+              case 3 -> backRightDriveInverted;
+              default -> false;
+            }
+        )
         .idleMode(IdleMode.kCoast)
         .smartCurrentLimit(driveMotorCurrentLimit)
         .voltageCompensation(12.0);
