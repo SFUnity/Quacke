@@ -56,8 +56,7 @@ public class DriveConstants {
   // Drive motor configuration
   public static final int driveMotorCurrentLimit = 50;
   public static final double wheelRadiusMeters = Units.inchesToMeters(2.193);
-  public static final double driveMotorReduction = 6.12; // MAXSwerve with 14 pinion teeth
-  // and 22 spur teeth
+  public static final double driveMotorReduction = 6.12;
   public static final DCMotor driveGearbox = DCMotor.getNEO(1);
 
   // Drive encoder configuration
