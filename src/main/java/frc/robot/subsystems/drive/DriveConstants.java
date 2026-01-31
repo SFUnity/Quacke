@@ -79,7 +79,7 @@ public class DriveConstants {
   // relative turn encoder configuration
   public static final double turnEncoderPositionFactor = 2 * Math.PI; // Rotations -> Radians
   public static final double turnEncoderVelocityFactor = (2 * Math.PI) / 60.0; // RPM -> Rad/Sec
-  
+
   // can coder configuration
   public static final CANcoderConfiguration encoderInitialConfigs = new CANcoderConfiguration();
 
