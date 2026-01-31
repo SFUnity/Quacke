@@ -39,6 +39,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants;
 import frc.robot.Constants.Mode;
 import frc.robot.util.LocalADStarAK;
+import frc.robot.util.LoggedTunableNumber;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import org.littletonrobotics.junction.AutoLogOutput;
@@ -184,11 +185,24 @@ public class Drive extends SubsystemBase {
     // Calculate module setpoints
     ChassisSpeeds discreteSpeeds = ChassisSpeeds.discretize(speeds, 0.02);
     SwerveModuleState[] setpointStates = kinematics.toSwerveModuleStates(discreteSpeeds);
+    setModuleSetpoints(setpointStates);
+    Logger.recordOutput("Drive/SwerveChassisSpeeds/Setpoints", discreteSpeeds);
+  }
+
+  private void setAllModuleSetpointsToSame(double speed, Rotation2d angle) {
+    var moduleStates = new SwerveModuleState[4];
+    for (int i = 0; i < 4; i++) {
+      moduleStates[i] = new SwerveModuleState(speed, angle);
+    }
+    setModuleSetpoints(moduleStates);
+    Logger.recordOutput("Drive/SwerveChassisSpeeds/Setpoints", new ChassisSpeeds());
+  }
+
+  private void setModuleSetpoints(SwerveModuleState[] setpointStates) {
     SwerveDriveKinematics.desaturateWheelSpeeds(setpointStates, maxSpeedMetersPerSec);
 
-    // Log unoptimized setpoints
-    Logger.recordOutput("SwerveStates/Setpoints", setpointStates);
-    Logger.recordOutput("SwerveChassisSpeeds/Setpoints", discreteSpeeds);
+    // Log unoptimized setpoints and setpoint speeds
+    Logger.recordOutput("Drive/SwerveStates/Setpoints", setpointStates);
 
     // Send setpoints to modules
     for (int i = 0; i < 4; i++) {
@@ -196,7 +210,7 @@ public class Drive extends SubsystemBase {
     }
 
     // Log optimized setpoints (runSetpoint mutates each state)
-    Logger.recordOutput("SwerveStates/SetpointsOptimized", setpointStates);
+    Logger.recordOutput("Drive/SwerveStates/SetpointsOptimized", setpointStates);
   }
 
   /** Runs the drive in a straight line with the specified drive output. */
@@ -312,5 +326,30 @@ public class Drive extends SubsystemBase {
   /** Returns the maximum angular speed in radians per sec. */
   public double getMaxAngularSpeedRadPerSec() {
     return maxSpeedMetersPerSec / driveBaseRadius;
+  }
+
+  private static final LoggedTunableNumber tuningTurnDelta =
+      new LoggedTunableNumber("Drive/ModuleTunables/turnDeltaForTuning", 90);
+  private static final LoggedTunableNumber tuningDriveSpeed =
+      new LoggedTunableNumber("Drive/ModuleTunables/tuningDriveSpeed", 3);
+
+  public void tuneModuleTurn() {
+    setAllModuleSetpointsToSame(0, Rotation2d.fromDegrees(tuningTurnDelta.get()));
+    LoggedTunableNumber.ifChanged(
+        hashCode(),
+        () -> {
+          for (var module : modules) module.setTurnPIDF(turnKp.get());
+        },
+        DriveConstants.turnKp,
+        tuningTurnDelta);
+  }
+
+  public void tuneModuleDrive() {
+    for (var module : modules) module.setDrivePIDF(driveKp.get());
+    setAllModuleSetpointsToSame(tuningDriveSpeed.get(), new Rotation2d());
+  }
+
+  public void endTuneModuleDrive() {
+    for (var module : modules) module.stop();
   }
 }

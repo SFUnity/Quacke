@@ -270,4 +270,26 @@ public class ModuleIOSpark implements ModuleIO {
         MathUtil.inputModulus(rotation.getRadians(), turnPIDMinInput, turnPIDMaxInput);
     turnController.setSetpoint(setpoint, ControlType.kPosition);
   }
+
+  @Override
+  public void setDrivePIDF(double drivekP) {
+    SparkMaxConfig config = new SparkMaxConfig();
+    config.closedLoop.p(drivekP);
+    tryUntilOk(
+        driveSpark,
+        () ->
+            driveSpark.configure(
+                config, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters));
+  }
+
+  @Override
+  public void setTurnPIDF(double turnkP) {
+    SparkMaxConfig config = new SparkMaxConfig();
+    config.closedLoop.p(turnkP);
+    tryUntilOk(
+        turnSpark,
+        () ->
+            turnSpark.configure(
+                config, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters));
+  }
 }
