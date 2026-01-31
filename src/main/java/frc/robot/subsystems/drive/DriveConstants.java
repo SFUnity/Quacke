@@ -87,6 +87,11 @@ public class DriveConstants {
   public static final boolean turnEncoderInverted = true;
   public static final double turnEncoderPositionFactor = 2 * Math.PI; // Rotations -> Radians
   public static final double turnEncoderVelocityFactor = (2 * Math.PI) / 60.0; // RPM -> Rad/Sec
+
+  public static final boolean frontLeftTurnEncoderInverted = false;
+  public static final boolean frontRightTurnEncoderInverted = false;
+  public static final boolean backLeftTurnEncoderInverted = false;
+  public static final boolean backRightTurnEncoderInverted = false;
   
   // can coder configuration
   public static final CANcoderConfiguration encoderInitialConfigs = new CANcoderConfiguration();
@@ -100,13 +105,6 @@ public class DriveConstants {
   public static final boolean frontRightEncoderInverted = false;
   public static final boolean backLeftEncoderInverted = false;
   public static final boolean backRightEncoderInverted = false;
-
-  // Turn encoder configuration
-
-  public static final boolean frontLeftTurnEncoderInverted = false;
-  public static final boolean frontRightTurnEncoderInverted = false;
-  public static final boolean backLeftTurnEncoderInverted = false;
-  public static final boolean backRightTurnEncoderInverted = false;
 
   // Turn PID configuration
   public static final double turnKp = 2.0;
