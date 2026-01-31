@@ -279,7 +279,7 @@ public class ModuleIOSpark implements ModuleIO {
         driveSpark,
         () ->
             driveSpark.configure(
-                config, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters));
+                config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters));
   }
 
   @Override
@@ -290,6 +290,6 @@ public class ModuleIOSpark implements ModuleIO {
         turnSpark,
         () ->
             turnSpark.configure(
-                config, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters));
+                config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters));
   }
 }
