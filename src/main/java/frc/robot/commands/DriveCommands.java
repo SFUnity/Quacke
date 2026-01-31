@@ -291,11 +291,11 @@ public class DriveCommands {
   }
 
   public static Command tuneModuleTurn(Drive drive) {
-    return Commands.run(drive::tuneModuleTurn, drive).withTimeout(2.0).withName("tuneModuleTurn");
+    return Commands.startEnd(drive::tuneModuleTurn, drive::endTuneModule, drive).withTimeout(2.0).withName("tuneModuleTurn");
   }
 
   public static Command tuneModuleDrive(Drive drive) {
-    return Commands.startEnd(drive::tuneModuleDrive, drive::endTuneModuleDrive, drive)
+    return Commands.startEnd(drive::tuneModuleDrive, drive::endTuneModule, drive)
         .withTimeout(2.0)
         .withName("tuneModuleDrive");
   }
