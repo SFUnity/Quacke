@@ -71,6 +71,7 @@ public class DriveConstants {
   public static final double driveSimKv = 0.0789;
 
   // Turn motor configuration
+  public static final boolean turnInverted = true;
   public static final int turnMotorCurrentLimit = 20;
   public static final double turnMotorReduction = 150 / 7;
   public static final DCMotor turnGearbox = DCMotor.getNEO(1);
@@ -78,12 +79,7 @@ public class DriveConstants {
   // relative turn encoder configuration
   public static final double turnEncoderPositionFactor = 2 * Math.PI; // Rotations -> Radians
   public static final double turnEncoderVelocityFactor = (2 * Math.PI) / 60.0; // RPM -> Rad/Sec
-
-  public static final boolean frontLeftTurnEncoderInverted = false;
-  public static final boolean frontRightTurnEncoderInverted = false;
-  public static final boolean backLeftTurnEncoderInverted = false;
-  public static final boolean backRightTurnEncoderInverted = false;
-
+  
   // can coder configuration
   public static final CANcoderConfiguration encoderInitialConfigs = new CANcoderConfiguration();
 
