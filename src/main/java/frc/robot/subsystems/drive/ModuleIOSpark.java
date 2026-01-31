@@ -172,7 +172,6 @@ public class ModuleIOSpark implements ModuleIO {
         () ->
             turnSpark.configure(
                 turnConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters));
-    // Configure cancoder
 
     // Configure cancoder
     CANcoderConfiguration cancoderConfig = encoderInitialConfigs;
