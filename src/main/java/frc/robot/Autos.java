@@ -13,13 +13,11 @@ import frc.robot.commands.DriveCommands;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.util.AllianceFlipUtil;
 import frc.robot.util.LoggedAutoChooser;
-import frc.robot.util.PoseManager;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 public class Autos {
   private final Drive drive;
-  private final PoseManager poseManager;
 
   private final AutoFactory factory;
   private final LoggedAutoChooser chooser;
@@ -31,14 +29,13 @@ public class Autos {
   public static boolean moveRight = false;
   public static boolean moveLeft = false;
 
-  public Autos(Drive drive, PoseManager poseManager) {
+  public Autos(Drive drive) {
     this.drive = drive;
-    this.poseManager = poseManager;
 
     factory =
         new AutoFactory(
-            poseManager::getPose,
-            poseManager::setPose,
+            drive::getPose,
+            drive::setPose,
             drive::followTrajectory,
             true,
             drive,
@@ -59,24 +56,14 @@ public class Autos {
     // chooser.addRoutine("Example Auto Routine", this::exampleAutoRoutine);
     chooser.addRoutine("Climb Auto Routine", this::climbAutoRoutine);
     chooser.addRoutine("Climb Center Auto Routine", this::climbCenterAutoRoutine);
-    chooser.addRoutine("Outpost Climb Auto Routine", this::outpostClimbAutoRoutine);
     chooser.addRoutine("Depot Auto Routine", this::depotAutoRoutine);
-    chooser.addRoutine("Score Center Climb Auto Routine", this::ScoreCenterClimbAutoRoutine);
-    chooser.addRoutine("Score Center Climb2 Auto Routine", this::ScoreCenterClimb2AutoRoutine);
-    chooser.addRoutine("Depot Feed Auto Routine", this::depotFeedAutoRoutine);
-    chooser.addRoutine("Upper Feed Climb Auto Routine", this::upperFeedClimbAutoRoutine);
     chooser.addRoutine("Feed Auto Routine", this::FeedAutoRoutine);
-    chooser.addRoutine("Lower Feed Auto Routine", this::LowerFeedAutoRoutine);
-    chooser.addRoutine("Lower Feed Climb Auto Routine", this::LowerFeedClimbAutoRoutine);
     if (!DriverStation.isFMSAttached()) {
       // Set up test choreo routines
 
       // SysID & non-choreo routines
       if (!isChoreoAuto) {
         // Set up SysId routines
-        nonChoreoChooser.addOption(
-            "Drive Wheel Radius Characterization",
-            DriveCommands.wheelRadiusCharacterization(drive, poseManager));
         nonChoreoChooser.addOption(
             "Drive Simple FF Characterization", DriveCommands.feedforwardCharacterization(drive));
         nonChoreoChooser.addOption(
