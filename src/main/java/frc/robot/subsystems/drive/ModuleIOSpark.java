@@ -30,6 +30,7 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.Timer;
 import java.util.Queue;
 import java.util.function.DoubleSupplier;
 
@@ -59,6 +60,7 @@ public class ModuleIOSpark implements ModuleIO {
       new Debouncer(0.5, Debouncer.DebounceType.kFalling);
   private final Debouncer turnConnectedDebounce =
       new Debouncer(0.5, Debouncer.DebounceType.kFalling);
+  private final Timer timer = new Timer();
 
   public ModuleIOSpark(int module) {
     driveSpark =
@@ -199,10 +201,17 @@ public class ModuleIOSpark implements ModuleIO {
         SparkOdometryThread.getInstance().registerSignal(driveSpark, driveEncoder::getPosition);
     turnPositionQueue =
         SparkOdometryThread.getInstance().registerSignal(turnSpark, turnEncoder::getPosition);
+
+    timer.start();
   }
 
   @Override
   public void updateInputs(ModuleIOInputs inputs) {
+    if (!timer.hasElapsed(1)) {
+      tryUntilOk(
+          turnSpark, () -> turnEncoder.setPosition(cancoder.getPosition().getValue().in(Radians)));
+    }
+
     // Update drive inputs
     sparkStickyFault = false;
     ifOk(driveSpark, driveEncoder::getPosition, (value) -> inputs.drivePositionRad = value);
@@ -220,7 +229,7 @@ public class ModuleIOSpark implements ModuleIO {
     ifOk(
         turnSpark,
         (turnEncoder::getPosition),
-        (value) -> inputs.turnPosition = new Rotation2d(value));
+        (value) -> inputs.turnPosition = new Rotation2d(value % (Math.PI * 2)));
     ifOk(turnSpark, turnEncoder::getVelocity, (value) -> inputs.turnVelocityRadPerSec = value);
     ifOk(
         turnSpark,
@@ -228,6 +237,9 @@ public class ModuleIOSpark implements ModuleIO {
         (values) -> inputs.turnAppliedVolts = values[0] * values[1]);
     ifOk(turnSpark, turnSpark::getOutputCurrent, (value) -> inputs.turnCurrentAmps = value);
     inputs.turnConnected = turnConnectedDebounce.calculate(!sparkStickyFault);
+
+    inputs.turnAbsolutePosition =
+        Rotation2d.fromRotations(cancoder.getAbsolutePosition().getValueAsDouble());
 
     // Update odometry inputs
     inputs.odometryTimestamps =
