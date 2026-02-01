@@ -101,9 +101,9 @@ public class RobotContainer {
         "Drive SysId (Dynamic Reverse)", drive.sysIdDynamic(SysIdRoutine.Direction.kReverse));
     autoChooser.addOption("TuneModuleTurn", DriveCommands.tuneModuleTurn(drive));
     autoChooser.addOption("TuneModuleDrive", DriveCommands.tuneModuleDrive(drive));
-    
+
     autos = new Autos(drive);
-        
+
     // Configure the button bindings
     configureButtonBindings();
   }
