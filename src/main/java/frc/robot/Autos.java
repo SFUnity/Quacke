@@ -55,7 +55,6 @@ public class Autos {
     chooser = new LoggedAutoChooser("ChoreoChooser");
     // chooser.addRoutine("Example Auto Routine", this::exampleAutoRoutine);
     chooser.addRoutine("Climb Auto Routine", this::climbAutoRoutine);
-    chooser.addRoutine("Climb Center Auto Routine", this::climbCenterAutoRoutine);
     chooser.addRoutine("Depot Auto Routine", this::depotAutoRoutine);
     chooser.addRoutine("Feed Auto Routine", this::FeedAutoRoutine);
     if (!DriverStation.isFMSAttached()) {
@@ -93,13 +92,6 @@ public class Autos {
     AutoRoutine routine = factory.newRoutine("Climb Auto Routine");
     AutoTrajectory Climb = routine.trajectory("Climb");
     routine.active().onTrue(Commands.sequence(Climb.resetOdometry(), Climb.cmd()));
-    return routine;
-  }
-
-  public AutoRoutine climbCenterAutoRoutine() {
-    AutoRoutine routine = factory.newRoutine("Climb Center Auto Routine");
-    AutoTrajectory ClimbCenter = routine.trajectory("ClimbCenter");
-    routine.active().onTrue(Commands.sequence(ClimbCenter.resetOdometry(), ClimbCenter.cmd()));
     return routine;
   }
 
