@@ -59,6 +59,8 @@ public class Autos {
     chooser.addRoutine("Feed Auto Routine", this::FeedAutoRoutine);
     if (!DriverStation.isFMSAttached()) {
       // Set up test choreo routines
+      chooser.addRoutine("StraightLine", this::StraightLine);
+      chooser.addRoutine("Spin", this::Spin);
 
       // SysID & non-choreo routines
       if (!isChoreoAuto) {
@@ -106,6 +108,20 @@ public class Autos {
     AutoRoutine routine = factory.newRoutine("Feed Auto Routine");
     AutoTrajectory Feed = routine.trajectory("Feed");
     routine.active().onTrue(Commands.sequence(Feed.resetOdometry(), Feed.cmd()));
+    return routine;
+  }
+
+  private AutoRoutine StraightLine() {
+    AutoRoutine routine = factory.newRoutine("StraightLine");
+    AutoTrajectory StraightLine = routine.trajectory("StraightLine");
+    routine.active().onTrue(StraightLine.resetOdometry().andThen(StraightLine.cmd()));
+    return routine;
+  }
+
+  private AutoRoutine Spin() {
+    AutoRoutine routine = factory.newRoutine("Spin");
+    AutoTrajectory Spin = routine.trajectory("Spin");
+    routine.active().onTrue(Spin.resetOdometry().andThen(Spin.cmd()));
     return routine;
   }
 }
