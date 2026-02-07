@@ -19,6 +19,7 @@ import com.pathplanner.lib.util.PathPlannerLogging;
 import edu.wpi.first.hal.FRCNetComm.tInstances;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.hal.HAL;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
@@ -371,6 +372,7 @@ public class Drive extends SubsystemBase {
   public void followTrajectory(SwerveSample sample) {
     updateAutoTunables();
     Pose2d pose = getPose();
+    double goalRotation = MathUtil.angleModulus(sample.heading);
 
     double xFF = sample.vx;
     double yFF = sample.vy;
@@ -379,15 +381,14 @@ public class Drive extends SubsystemBase {
     double xFeedback = xAutoController.calculate(pose.getX(), sample.x);
     double yFeedback = yAutoController.calculate(pose.getY(), sample.y);
     double rotationFeedback =
-        headingAutoController.calculate(pose.getRotation().getRadians(), sample.heading);
+        headingAutoController.calculate(pose.getRotation().getRadians(), goalRotation);
 
     ChassisSpeeds out =
         ChassisSpeeds.fromFieldRelativeSpeeds(
             xFF + xFeedback, yFF + yFeedback, rotationFF + rotationFeedback, pose.getRotation());
 
     Logger.recordOutput(
-        "Drive/Choreo/Target Pose", new Pose2d(sample.x, sample.y, new Rotation2d(sample.heading)));
-    Logger.recordOutput("Drive/Choreo/Target Speeds", out);
+        "Drive/Choreo/Target Pose", new Pose2d(sample.x, sample.y, new Rotation2d(goalRotation)));
 
     runVelocity(out);
   }
