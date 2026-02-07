@@ -57,6 +57,7 @@ public class Autos {
     chooser.addRoutine("Climb Auto Routine", this::climbAutoRoutine);
     chooser.addRoutine("Depot Auto Routine", this::depotAutoRoutine);
     chooser.addRoutine("Feed Auto Routine", this::FeedAutoRoutine);
+    chooser.addRoutine("Outpost Climb Auto Routine", this::outpostClimbAutoRoutine);
     if (!DriverStation.isFMSAttached()) {
       // Set up test choreo routines
       chooser.addRoutine("StraightLine", this::StraightLine);
@@ -108,6 +109,13 @@ public class Autos {
     AutoRoutine routine = factory.newRoutine("Feed Auto Routine");
     AutoTrajectory Feed = routine.trajectory("Feed");
     routine.active().onTrue(Commands.sequence(Feed.resetOdometry(), Feed.cmd()));
+    return routine;
+  }
+
+  public AutoRoutine outpostClimbAutoRoutine() {
+    AutoRoutine routine = factory.newRoutine("Outpost Climb Auto Routine");
+    AutoTrajectory OutpostClimb = routine.trajectory("OutpostClimb");
+    routine.active().onTrue(Commands.sequence(OutpostClimb.resetOdometry(), OutpostClimb.cmd()));
     return routine;
   }
 
