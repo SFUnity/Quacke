@@ -35,6 +35,9 @@ public class RobotContainer {
   // Subsystems
   private final Drive drive;
 
+  // Non-subsystems
+  private final Autos autos;
+
   // Controller
   private final CommandXboxController controller = new CommandXboxController(0);
 
@@ -99,6 +102,8 @@ public class RobotContainer {
     autoChooser.addOption("TuneModuleTurn", DriveCommands.tuneModuleTurn(drive));
     autoChooser.addOption("TuneModuleDrive", DriveCommands.tuneModuleDrive(drive));
 
+    autos = new Autos(drive);
+
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -149,6 +154,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return autoChooser.get();
+    return autos.getAutonomousCommand();
   }
 }
