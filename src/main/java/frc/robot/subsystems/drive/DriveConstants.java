@@ -48,7 +48,7 @@ public class DriveConstants {
   public static final int backRightEncoderCanId = 27;
 
   // Drive motor configuration
-  public static final int driveMotorCurrentLimit = 50;
+  public static final int driveMotorCurrentLimit = 55;
   public static final double wheelRadiusMeters = Units.inchesToMeters(2.193);
   public static final double driveMotorReduction = 6.12;
   public static final DCMotor driveGearbox = DCMotor.getNEO(1);
@@ -106,7 +106,7 @@ public class DriveConstants {
   public static final double turnSimP = 8.0;
   public static final double turnSimD = 0.0;
   public static final double turnPIDMinInput = 0; // Radians
-  public static final double turnPIDMaxInput = 2 * Math.PI; // Radians
+  public static final double turnPIDMaxInput = 2 * Math.PI; // Radians5\
 
   // PathPlanner configuration
   public static final double robotMassKg = 74.088;
